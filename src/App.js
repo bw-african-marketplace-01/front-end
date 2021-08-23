@@ -1,5 +1,7 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Signin from "./components/Signin"
+import Signup from "./components/Signup"
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import "./App.css";
 
 function App() {
@@ -7,10 +9,14 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/dashboard" />
-          <Route path="/signup" />
-          <Route path="/login" />
+          <Route path="/dashboard"/>
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Signin}/>
           <Route path="/" />
+
+          <Route path="/">
+            <Redirect to="/"/>
+          </Route>
         </Switch>
       </div>
     </Router>
