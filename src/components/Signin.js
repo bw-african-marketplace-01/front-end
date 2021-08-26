@@ -99,7 +99,7 @@ function Signin(props) {
           <input
             name="password"
             id="password"
-            type="text"
+            type="password"
             placeholder="Password"
             onChange={handleChange}
           />
