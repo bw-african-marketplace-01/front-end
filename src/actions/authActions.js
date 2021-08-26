@@ -4,6 +4,7 @@ export const login = (credentials) => {
     return (dispatch) => {
         axiosWithAuth().post('/users/login', credentials)
         .then(res => {
+            localStorage.setItem('token', res.data.token)
             dispatch({type: LOGIN_SUCCESS, payload:res.data.token});
         })
         .catch(err => {
@@ -16,7 +17,7 @@ export const register = (credentials) => {
     return (dispatch) => {
         axiosWithAuth().post('/users/register', credentials)
         .then(res => {
-            dispatch({type: REGISTER_SUCCESS, payload:res.data.token});
+            dispatch({type: REGISTER_SUCCESS, payload:res.data});
         })
         .catch(err => {
             dispatch({type: REGISTER_FAIL, payload:err})
