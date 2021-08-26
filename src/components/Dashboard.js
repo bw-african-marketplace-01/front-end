@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { getData } from "../actions/dataActions";
+import Card from "./Card";
 
 const Hero = styled.div`
   height: 500px;
@@ -21,6 +22,17 @@ const Hero = styled.div`
   }
 `;
 
+const Title = styled.div`
+background-color: lightgrey;
+color: black;
+font-weight: bold;
+padding: 20px;
+width: 60%;
+margin: auto;
+margin-top: 10px;
+text-align: center;
+`
+
 function Dashboard(props) {
   const token = localStorage.getItem("token");
 
@@ -33,6 +45,11 @@ function Dashboard(props) {
       <Hero>
         <h1>Made for the small business</h1>
       </Hero>
+
+      <Title>Local Products</Title>
+
+      <Card />
+      <Card />
 
       <div>
         {props.data.map((item) => (
