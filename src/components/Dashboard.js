@@ -33,7 +33,7 @@ export default function Dashboard() {
       .then(res => {
         setData(res.data)
       })
-  }, [])
+  }, [token])
 
   return (
     <div>
