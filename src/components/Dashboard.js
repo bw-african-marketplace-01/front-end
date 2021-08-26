@@ -20,14 +20,18 @@ h1 {
 `
 
 export default function Dashboard() {
+  const token = localStorage.getItem('token');
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axiosWithAuth()
-      .get('/items')
+      .get('/items', {
+        headers: {
+          authorization: token
+        }
+      })
       .then(res => {
-        // setData()
-        console.log(res)
+        setData(res.data)
       })
   }, [])
 
@@ -36,6 +40,12 @@ export default function Dashboard() {
       <Hero>
         <h1>Made for the small business</h1>
       </Hero>
+
+      <div>
+        {data.map(item => (
+          <p>{item}</p>
+        ))}
+      </div>
     </div>
   )
 }
