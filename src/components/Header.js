@@ -18,7 +18,7 @@ function Header() {
     padding: 1vh 4vw;
     background-color: #262626;
     color: white;
-    margin-bottom: 5px;
+    // margin-bottom: 5px;
     h1 {
       margin: 0;
       font-size: 1.4rem;
