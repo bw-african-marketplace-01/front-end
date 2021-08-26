@@ -1,9 +1,13 @@
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-export const getData = () => {
+export const getData = (token) => {
     return (dispatch) => {
         dispatch({type: FETCH_DATA});
-        axiosWithAuth().get('/users')
+        axiosWithAuth().get('/items', {
+            headers:{
+                authentication : token
+            }
+        })
         .then(res => {
             dispatch({type: FETCH_DATA_SUCCESS, payload:res.data})
         })
@@ -20,7 +24,7 @@ export const fetchData = () => {
 
 export const FETCH_DATA_SUCCESS = "FETCH_DATA_SUCCESS";
 export const fetchDataSuccess = (data) => {
-    return({type:FETCH_SUCCESS, payload:data})
+    return({type:FETCH_DATA_SUCCESS, payload:data})
 }
 
 export const FETCH_DATA_FAIL = "FETCH_DATA_FAIL";
