@@ -59,6 +59,9 @@ const SubmitButtonDiv = styled.div`
 function Signin(props) {
 
   const history = useHistory();
+  const token = localStorage.getItem('token');
+
+  if(token) history.push('/dashboard');
   
   const [credentials, setCredentials] = useState({
     username: "",
@@ -77,8 +80,6 @@ function Signin(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.login(credentials);
-    localStorage.setItem('token', props.token)
-    history.push('/dashboard')
   };
 
   return (
@@ -115,6 +116,7 @@ const connectStateToProps = (state) => {
   state = state.authReducer
   return {
     token: state.token,
+    isLoggedIn: state.isLoggedIn,
     error: state.error
   }
 }
