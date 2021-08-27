@@ -17,6 +17,33 @@ export const getData = (token) => {
     }
 }
 
+export const addData = (item, token) => {
+    return (dispatch) => {
+        axiosWithAuth().post('/items', item, {
+            headers:{
+                authentication: token
+            }
+        })
+        .then(res => {
+            console.log(res);
+            dispatch({type:POST_ITEM, payload:res.data})
+        })
+        .catch(err => {
+            dispatch({type:POST_ERROR, payload:err})
+        })
+    }
+}
+
+export const POST_ITEM = "POST_ITEMS"
+export const postItem = () => {
+    return({type:POST_ITEM})
+}
+
+export const POST_ERROR = "POST_ERROR"
+export const postError = () => {
+    return({type:POST_ERROR})
+}
+
 export const FETCH_DATA = "FETCH_DATA";
 export const fetchData = () => {
     return({type:FETCH_DATA})
