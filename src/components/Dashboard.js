@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { getData } from "../actions/dataActions";
+import { getData, addData } from "../actions/dataActions";
+import { Link } from 'react-router-dom'
 import Card from "./Card";
 
 const Hero = styled.div`
@@ -23,15 +24,26 @@ const Hero = styled.div`
 `;
 
 const Title = styled.div`
-background-color: lightgrey;
-color: black;
-font-weight: bold;
-padding: 20px;
-width: 60%;
-margin: auto;
-margin-top: 10px;
-text-align: center;
-`
+  background-color: lightgrey;
+  color: black;
+  font-weight: bold;
+  padding: 20px;
+  width: 60%;
+  margin: auto;
+  margin-top: 10px;
+  text-align: center;
+  position:relative;
+
+  a{
+    position:absolute;
+    right:0;
+    margin-right:20px;
+    background-color:transparent;
+    border:0;
+    text-decoration: underline;
+    color:black;
+  }
+`;
 
 function Dashboard(props) {
   const token = localStorage.getItem("token");
@@ -40,20 +52,34 @@ function Dashboard(props) {
     props.getData(token);
   }, []);
 
+  if (!props.data) return (<h1>Loading...</h1>)
+
+  const data = props.data.map(
+    (item, idx) => props.data[props.data.length - 1 - idx]
+  );
+
   return (
     <div>
       <Hero>
         <h1>Made for the small business</h1>
       </Hero>
 
-      <Title>Local Products</Title>
-
-      <Card />
-      <Card />
+      <Title>
+        Local Products 
+        <Link to="/item-form">
+            Add Item
+        </Link>
+      </Title>
 
       <div>
-        {props.data.map((item) => (
-          <p>{item}</p>
+        {data.map((item) => (
+          <div>
+            <Card
+              name={item.name}
+              price={item.price}
+              description={item.description}
+            />
+          </div>
         ))}
       </div>
     </div>
@@ -67,4 +93,4 @@ const connectStateToProps = (state) => {
   };
 };
 
-export default connect(connectStateToProps, { getData })(Dashboard);
+export default connect(connectStateToProps, { getData, addData })(Dashboard);
